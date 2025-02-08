@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script>
+    function addToCart(productName, productPrice) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name: productName, price: productPrice });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${productName} added to cart.`);
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>My Store</h1>
+    <nav>
+      <a href="products.html">Products</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="product-list">
+      <div class="product">
+        <img src="Baby Shower Gift Basket.jpg" alt="Product A">
+        <h2>Baby Shower Gift Basket</h2>
+        <p>Price: Rs.330</p>
+        <button onclick="addToCart('Product A', 330)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="Cute Blue Hamper.jpg" alt="Product B">
+        <h2>Cute Blue Hamper</h2>
+        <p>Price: Rs.290</p>
+        <button onclick="addToCart('Product B', 290)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="Gift Choco Hamper.jpg" alt="Product C">
+        <h2>Gift Choco Hamper</h2>
+        <p>Price: Rs.300</p>
+        <button onclick="addToCart('Product C', 300)">Add to Cart</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>My Store &copy; 2025</p>
+  </footer>
+</body>
+</html>

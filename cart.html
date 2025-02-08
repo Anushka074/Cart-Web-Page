@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script>
+    function loadCart() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartContainer = document.getElementById('cart-items');
+      cartContainer.innerHTML = '';
+
+      let totalAmount = 0;
+      cart.forEach((item, index) => {
+        totalAmount += item.price;
+        const itemRow = document.createElement('div');
+        itemRow.classList.add('cart-item');
+        itemRow.innerHTML = `<span>${item.name} - Rs.${item.price}</span> <button onclick="removeFromCart(${index})">Remove</button>`;
+        cartContainer.appendChild(itemRow);
+      });
+
+      document.getElementById('total-amount').innerText = `Total: Rs.${totalAmount}`;
+    }
+
+    function removeFromCart(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function checkout() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        alert('Your cart is empty.');
+        return;
+      }
+      let totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+      alert(`Checkout successful! Total amount: Rs.${totalAmount}`);
+      localStorage.removeItem('cart');
+      loadCart();
+    }
+
+    window.onload = loadCart;
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Your Cart</h1>
+    <nav>
+      <a href="products.html">Products</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="cart-items" class="cart-list">
+      <!-- Cart items will be loaded here -->
+    </section>
+    <p id="total-amount">Total: Rs.0</p>
+    <button onclick="checkout()">Checkout</button>
+  </main>
+
+  <footer>
+    <p>My Store &copy; 2025</p>
+  </footer>
+</body>
+</html>
